@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Dashboard — SCT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="passengerDashboard">
+<div id="toast-container"></div>
+
+<div class="page-shell">
+    <!-- Top Bar -->
+    <nav class="topbar">
+        <div class="topbar__inner">
+            <a href="index.html" class="topbar__logo">
+                <span class="topbar__logo-dot"></span>
+                SCT System
+            </a>
+            <div class="topbar__actions">
+                <span class="topbar__user">Hello, <span id="userGreeting">—</span></span>
+                <button class="btn btn--ghost btn--sm" onclick="logout()">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <div class="page-header__label">Passenger Portal</div>
+                <h1 class="page-header__title">My Dashboard</h1>
+                <p class="page-header__subtitle">Book trips and track your travel history.</p>
+            </div>
+
+            <!-- Book a Trip -->
+            <div class="card">
+                <h3 class="card__title">Book a Trip</h3>
+                <form id="bookingForm" onsubmit="event.preventDefault()">
+                    <div class="form-group">
+                        <label for="tripSelect">Select Trip</label>
+                        <select id="tripSelect" required>
+                            <option value="">Loading trips…</option>
+                        </select>
+                        <p id="farePreview" class="text-muted mt-2" style="display:none; font-size:0.82rem;"></p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickup">Pickup Stop</label>
+                            <input type="text" id="pickup" placeholder="e.g. Township Gate A" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dropoff">Drop-off Stop</label>
+                            <input type="text" id="dropoff" placeholder="e.g. Gulberg Main Blvd" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="max-width: 180px;">
+                        <label for="seatsInput">Seats Required</label>
+                        <input type="number" id="seatsInput" value="1" min="1" max="10" required>
+                    </div>
+
+                    <button type="button" id="bookBtn" class="btn btn--primary" onclick="submitBooking()">
+                        Book Now
+                    </button>
+                </form>
+            </div>
+
+            <!-- My Bookings -->
+            <div class="card">
+                <div class="flex-between mb-4">
+                    <h3 class="card__title">My Bookings</h3>
+                    <button class="btn btn--ghost btn--sm" onclick="loadMyBookings(getSession()?.userId)">Refresh</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Seats</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Payment</th>
+                                <th>Pay Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTbody">
+                            <tr class="loading-row"><td colspan="8">Loading…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

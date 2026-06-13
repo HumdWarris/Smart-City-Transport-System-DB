@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Vehicles — SCT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="manageVehiclePage">
+<div id="toast-container"></div>
+
+<div class="page-shell">
+    <nav class="topbar">
+        <div class="topbar__inner">
+            <a href="admin_dashboard.html" class="topbar__logo">
+                <span class="topbar__logo-dot"></span>
+                SCT System
+            </a>
+            <div class="topbar__actions">
+                <a href="admin_dashboard.html" class="btn btn--ghost btn--sm">← Back to Dashboard</a>
+                <button class="btn btn--ghost btn--sm" onclick="logout()">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <div class="page-header__label">Admin</div>
+                <h1 class="page-header__title">Manage Vehicles</h1>
+                <p class="page-header__subtitle">Register new vehicles and review the fleet.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 class="card__title">Register New Vehicle</h3>
+                    <form id="vehicleForm" onsubmit="event.preventDefault()">
+                        <div class="form-group">
+                            <label for="regNumber">Registration Number</label>
+                            <input type="text" id="regNumber" placeholder="e.g. LHR-BA-0099" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleType">Vehicle Type</label>
+                            <select id="vehicleType" required>
+                                <option value="">— Select type —</option>
+                                <option value="Bus">Bus</option>
+                                <option value="Mini-Bus">Mini-Bus</option>
+                                <option value="Van">Van</option>
+                                <option value="Rickshaw">Rickshaw</option>
+                                <option value="Cab">Cab</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="capacity">Capacity</label>
+                                <input type="number" id="capacity" placeholder="e.g. 40" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fuelType">Fuel Type</label>
+                                <select id="fuelType" required>
+                                    <option value="">— Select —</option>
+                                    <option value="CNG">CNG</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="driverId">Driver ID <span class="text-muted">(optional)</span></label>
+                            <input type="number" id="driverId" placeholder="Leave blank if unassigned">
+                        </div>
+                        <button type="button" id="addVehicleBtn" class="btn btn--primary btn--full" onclick="addVehicle()">
+                            Add Vehicle
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="flex-between mb-4">
+                        <h3 class="card__title">Available Vehicles</h3>
+                        <button class="btn btn--ghost btn--sm" onclick="loadVehicleList()">Refresh</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Reg No.</th>
+                                    <th>Type</th>
+                                    <th>Capacity</th>
+                                    <th>Fuel</th>
+                                    <th>Status</th>
+                                    <th>Assigned Driver</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vehiclesTbody">
+                                <tr class="loading-row"><td colspan="6">Loading…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

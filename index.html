@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Transport — Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toast-container"></div>
+
+<div class="login-page">
+    <!-- Brand Panel -->
+    <div class="login-page__brand">
+        <div class="login-page__brand-logo">
+            <span class="topbar__logo-dot"></span>
+            SCT System
+        </div>
+        <div class="login-page__brand-title">
+            Smart<br><em>City</em><br>Transport
+        </div>
+        <p class="login-page__brand-desc">
+            A unified platform for passengers, drivers, and administrators to manage city-wide transport operations seamlessly.
+        </p>
+        <div class="login-page__brand-dots">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Form Panel -->
+    <div class="login-page__form-side">
+        <h2 class="login-page__form-title">Welcome back</h2>
+        <p class="login-page__form-sub">Sign in to your account to continue.</p>
+
+        <form id="loginForm" autocomplete="off">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <div class="form-group">
+                <label for="roleSelect">Sign in as</label>
+                <select id="roleSelect" required>
+                    <option value="Passenger">Passenger</option>
+                    <option value="Driver">Driver</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn--primary btn--lg btn--full">Sign In</button>
+            </div>
+        </form>
+
+        <p class="text-muted mt-3" style="text-align:center; font-size: 0.8rem;">
+            Demo: use any registered email from the database.<br>
+            Password validation matches PASSWORD_HASH column.
+        </p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

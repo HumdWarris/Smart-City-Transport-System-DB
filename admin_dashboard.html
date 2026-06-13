@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — SCT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="adminDashboard">
+<div id="toast-container"></div>
+
+<div class="page-shell">
+    <nav class="topbar">
+        <div class="topbar__inner">
+            <a href="index.html" class="topbar__logo">
+                <span class="topbar__logo-dot"></span>
+                SCT System
+            </a>
+            <div class="topbar__actions">
+                <span class="topbar__user">Admin: <span id="userGreeting">—</span></span>
+                <button class="btn btn--ghost btn--sm" onclick="logout()">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <div class="page-header__label">Admin Control Panel</div>
+                <h1 class="page-header__title">System Overview</h1>
+                <p class="page-header__subtitle">Manage vehicles, monitor routes, and review system users.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="reports" onclick="switchTab('reports')">Route Reports</button>
+                <button class="tab-btn" data-tab="users" onclick="switchTab('users')">Users</button>
+                <button class="tab-btn" data-tab="vehicles" onclick="switchTab('vehicles')">Vehicles</button>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="tab-reports" class="tab-content active">
+                <div class="card">
+                    <div class="flex-between mb-4">
+                        <h3 class="card__title">Route Revenue Summary</h3>
+                        <div class="flex gap-2 align-center">
+                            <span class="text-muted" style="font-size:0.85rem;">Total Revenue: <strong id="totalRevenue" class="text-accent">—</strong></span>
+                            <button class="btn btn--ghost btn--sm" onclick="loadReports()">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Route Name</th>
+                                    <th>Distance</th>
+                                    <th>Base Fare</th>
+                                    <th>Total Trips</th>
+                                    <th>Total Bookings</th>
+                                    <th>Revenue (PKR)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportTbody">
+                                <tr class="loading-row"><td colspan="6">Loading…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="tab-users" class="tab-content">
+                <div class="card">
+                    <div class="flex-between mb-4">
+                        <h3 class="card__title">All Users</h3>
+                        <button class="btn btn--ghost btn--sm" onclick="loadUsers()">Refresh</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTbody">
+                                <tr class="loading-row"><td colspan="6">Loading…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicles Tab -->
+            <div id="tab-vehicles" class="tab-content">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card__title">Add New Vehicle</h3>
+                        <form id="vehicleForm" onsubmit="event.preventDefault()">
+                            <div class="form-group">
+                                <label for="regNumber">Registration Number</label>
+                                <input type="text" id="regNumber" placeholder="e.g. LHR-BA-0099" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicleType">Vehicle Type</label>
+                                <select id="vehicleType" required>
+                                    <option value="">— Select type —</option>
+                                    <option value="Bus">Bus</option>
+                                    <option value="Mini-Bus">Mini-Bus</option>
+                                    <option value="Van">Van</option>
+                                    <option value="Rickshaw">Rickshaw</option>
+                                    <option value="Cab">Cab</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="capacity">Capacity</label>
+                                    <input type="number" id="capacity" placeholder="e.g. 40" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fuelType">Fuel Type</label>
+                                    <select id="fuelType" required>
+                                        <option value="">— Select —</option>
+                                        <option value="CNG">CNG</option>
+                                        <option value="Petrol">Petrol</option>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="Electric">Electric</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="driverId">Driver ID <span class="text-muted">(optional)</span></label>
+                                <input type="number" id="driverId" placeholder="Leave blank if unassigned">
+                            </div>
+                            <button type="button" id="addVehicleBtn" class="btn btn--primary btn--full" onclick="addVehicle()">
+                                Add Vehicle
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <div class="flex-between mb-4">
+                            <h3 class="card__title">Available Vehicles</h3>
+                            <button class="btn btn--ghost btn--sm" onclick="loadVehicleList()">Refresh</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Reg No.</th>
+                                        <th>Type</th>
+                                        <th>Cap</th>
+                                        <th>Fuel</th>
+                                        <th>Status</th>
+                                        <th>Driver</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vehiclesTbody">
+                                    <tr class="loading-row"><td colspan="6">Loading…</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

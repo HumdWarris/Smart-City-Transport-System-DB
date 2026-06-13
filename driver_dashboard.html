@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard — SCT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="driverDashboard">
+<div id="toast-container"></div>
+
+<div class="page-shell">
+    <nav class="topbar">
+        <div class="topbar__inner">
+            <a href="index.html" class="topbar__logo">
+                <span class="topbar__logo-dot"></span>
+                SCT System
+            </a>
+            <div class="topbar__actions">
+                <span class="topbar__user">Driver: <span id="userGreeting">—</span></span>
+                <button class="btn btn--ghost btn--sm" onclick="logout()">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <div class="page-header__label">Driver Portal</div>
+                <h1 class="page-header__title">My Trips</h1>
+                <p class="page-header__subtitle">View and manage your assigned trips.</p>
+            </div>
+
+            <div class="card">
+                <div class="flex-between mb-4">
+                    <h3 class="card__title">Assigned Trips</h3>
+                    <button class="btn btn--ghost btn--sm" onclick="loadDriverTrips(getSession()?.userId)">Refresh</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Trip ID</th>
+                                <th>Route</th>
+                                <th>Vehicle</th>
+                                <th>Departure</th>
+                                <th>Seats Left</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tripsTbody">
+                            <tr class="loading-row"><td colspan="7">Loading trips…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
