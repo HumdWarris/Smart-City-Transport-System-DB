@@ -2,6 +2,8 @@
 Oracle 11g database for managing a smart city transport system — buses, trains, routes, stations, drivers, tickets &amp; schedules. Built with PL/SQL triggers, stored procedures, views, and role-based access control (Admin/Manager/Passenger).
 
 🚌 Smart City Transport System – Database Project
+<img width="1848" height="1025" alt="image" src="https://github.com/user-attachments/assets/11dcd005-ddaa-4acf-88fc-bec984731ed8" />
+
 Oracle 11g PL/SQL Oracle APEX University Project Database Systems
 A relational database solution for managing public transportation in a smart city — covering buses, trains, routes, stations, drivers, passengers, tickets, and schedules with role-based access control.
 
